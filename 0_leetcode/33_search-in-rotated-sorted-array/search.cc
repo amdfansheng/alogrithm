@@ -14,7 +14,7 @@ public:
         int left = 0, right = size;
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            if (nums[left] < nums[mid]) { // 前有序
+            if (nums[left] <= nums[mid]) { // 前有序
                 int ret = bsearch(nums, left, mid, target);
                 if (ret != -1) return ret;
                 left = mid + 1;
@@ -58,7 +58,8 @@ int main(int argc, char *argv[])
     if (argc < 2) return -1;
 
     Solution s;
-    vector<int> nums = {4, 5, 6, 7, 0, 1, 2};
+    //vector<int> nums = {4, 5, 6, 7, 0, 1, 2};
+    vector<int> nums = {3, 1};
     s.dump(nums);
 
     int target = atoi(argv[1]);
