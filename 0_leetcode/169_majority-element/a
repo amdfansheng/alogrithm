@@ -1,0 +1,31 @@
+lo: 0, hi: 6
+lo: 0, hi: 3
+lo: 0, hi: 1
+lo: 0, hi: 0
+lo: 1, hi: 1
+lo: 0, hi: 1, target: 2, count: 2
+left_majority: 2
+
+lo: 2, hi: 3
+lo: 2, hi: 2
+lo: 3, hi: 3
+lo: 2, hi: 3, target: 1, count: 2
+left_majority: 1
+
+lo: 0, hi: 3, target: 2, count: 2
+lo: 0, hi: 3, target: 1, count: 2
+lo: 4, hi: 6
+lo: 4, hi: 5
+lo: 4, hi: 4
+lo: 5, hi: 5
+lo: 4, hi: 5, target: 1, count: 1
+lo: 4, hi: 5, target: 2, count: 1
+lo: 6, hi: 6
+lo: 4, hi: 6, target: -1, count: 0
+lo: 4, hi: 6, target: 2, count: 2
+right_majority: 2
+lo: 0, hi: 6, target: -1, count: 0
+lo: 0, hi: 6, target: 2, count: 4
+right_majority: 2
+majority: 2
+

@@ -1,0 +1,86 @@
+-4 -1 0 0 1 2 2 2 2 3 3 
+i: 0:-4
+	j: 1:-1
+	c: 5
+	not found c, insert -1
+	j: 2:0
+	c: 4
+	not found c, insert 0
+	j: 3:0
+	c: 4
+	not found c, insert 0
+	j: 4:1
+	c: 3
+	not found c, insert 1
+	j: 5:2
+	c: 2
+	not found c, insert 2
+	j: 6:2
+	c: 2
+	found c: [-4, 2, 2]
+	j: 7:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 8:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 9:3
+	c: 1
+	found c: [-4, 3, 1]
+	j: 10:3
+	c: 1
+	not found c, insert 3
+i: 1:-1
+	j: 2:0
+	c: 1
+	not found c, insert 0
+	j: 3:0
+	c: 1
+	not found c, insert 0
+	j: 4:1
+	c: 0
+	found c: [-1, 1, 0]
+	j: 5:2
+	c: -1
+	not found c, insert 2
+	j: 6:2
+	c: -1
+	not found c, insert 2
+	j: 7:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 8:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 9:3
+	c: -2
+	not found c, insert 3
+	j: 10:3
+	c: -2
+	not found c, insert 3
+i: 2:0
+	j: 3:0
+	c: 0
+	not found c, insert 0
+	j: 4:1
+	c: -1
+	not found c, insert 1
+	j: 5:2
+	c: -2
+	not found c, insert 2
+	j: 6:2
+	c: -2
+	not found c, insert 2
+	j: 7:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 8:2
+nums[j] == nums[j-1] == nums[j-2]
+	j: 9:3
+	c: -3
+	not found c, insert 3
+	j: 10:3
+	c: -3
+	not found c, insert 3
+i: 3:0
+nums[i] == nums[i - 1], i: 3
+i: 4:1
+nums[4]:1 > 0
+-4 2 2 
+-4 3 1 
+-1 1 0 
