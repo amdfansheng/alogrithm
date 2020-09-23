@@ -39,12 +39,44 @@ void dump(ListNode* l, size_t pos)
 
 bool hasCycle(ListNode *head)
 {
-    ListNode *slow = head->next, *fast = slow;
+    if (!head) return false;
+    struct ListNode *slow = head->next, *fast = slow;
     if (!slow) return false;
 
     while(slow && fast) {
+        if (!slow->next) return false;
+        if (!fast->next || !fast->next->next) return false;
         slow = slow->next;
-        fast = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+
+    return false;
+}
+
+bool hasCycle2(ListNode *head)
+{
+    if (!head || !head->next) return false;
+    struct ListNode *slow = head, *fast = head->next;
+
+    while(slow != fast) {
+        if (!fast || !fast->next) return false;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return true;
+}
+
+// best code
+bool hasCycle3(ListNode *head)
+{
+    struct ListNode *slow = head;
+    struct ListNode *fast = head;
+
+    while(fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
         if (slow == fast) return true;
     }
 
@@ -58,7 +90,7 @@ int main()
     vector<int> v1 = {3, 2, 0, 4};
     ListNode *l1 = creat_with_cycle(v1, 1);
     dump(l1, 1);
-    printf("%s\n", hasCycle(l1)?"has":"no-has");
+    printf("%s\n", hasCycle3(l1)?"has":"no-has");
 
     //ListNode *l2 = creat(v2);
     //dump(l2);
