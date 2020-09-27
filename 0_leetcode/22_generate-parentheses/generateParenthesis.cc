@@ -14,7 +14,7 @@ public:
         if (n == 1) return vector<string>{"()"};
         if (n == 2) return vector<string>{"(())", "()()"};
 
-        string str; str.resize(2 * n);
+        string str; str.resize(2 * n, ' ');
         str[0] = '('; str[2 * n - 1] = ')';
 
         gen_pare_in(str.data(), 2 * n, 0, 0, 1);
