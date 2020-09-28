@@ -29,6 +29,7 @@ public:
         vector<int> tmp;
         tmp.reserve(end - beg + 1);
 
+        // 归并到临时数组里
         int i = beg, j = mid + 1, k = 0;
         while (i <= mid && j <= end) {
             if (nums[i] <= nums[j])
@@ -49,6 +50,7 @@ public:
             //printf("%d\n", tmp[k - 1]);
         }
 
+        // 拷贝到源数组中
         for (int i = 0; i < end - beg + 1; ++i) {
             nums[beg + i] = tmp[i];
         }
