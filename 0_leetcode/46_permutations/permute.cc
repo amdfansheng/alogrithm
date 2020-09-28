@@ -1,3 +1,4 @@
+// 全排列，经典回溯问题
 #include <vector>
 #include <cstdio>
 
@@ -16,20 +17,23 @@ public:
         return ret;
     }
 
-    void permute_in(vector<vector<int>> &ret, vector<int> &nums, int k)
+    void permute_in(vector<vector<int>> &ret, vector<int> &nums, int k) // 路径，选择列表
     {
+        // 满足结束条件
         if (k == 1) {
             ret.push_back(nums);
             return;
         }
 
         for (int i = 0; i < k; ++i) {
+            // 做选择
             int tmp = nums[k - 1];
             nums[k - 1] = nums[i];
             nums[i] = tmp;
 
             permute_in(ret, nums, k - 1);
 
+            // 撤消选择
             tmp = nums[i];
             nums[i] = nums[k - 1];
             nums[k - 1] = tmp;
