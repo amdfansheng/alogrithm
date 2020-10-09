@@ -20,7 +20,7 @@ public:
     void back_trace(int n, int row, vector<pair<int, int>> &trace) // 路径，选择列表
     {
         if (row == n) {
-            if (is_valid(n, trace)) build_string(n, trace);
+            if (is_valid(n, trace)) build_string(n, trace); // 走到底后再过滤，可以优化，提前剪枝
             return;
         }
 
@@ -34,7 +34,7 @@ public:
 
             trace.emplace_back(pair<int, int>{row, col});
             back_trace(n, row + 1, trace);
-            trace.erase(trace.end() - 1);
+            trace.erase(trace.end() - 1); // 这里其实相当于跟随函数调用栈手工维护了一个选择列表栈
         }
     }
 
