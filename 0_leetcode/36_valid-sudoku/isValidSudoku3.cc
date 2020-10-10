@@ -20,7 +20,7 @@ public:
                 int b = (r / 3) * 3 + c / 3; // key state
 
                 rmask = 0x1 << index; cmask = rmask << 9; bmask = cmask << 9;
-                if ((memo[r] & rmask) != 0 || (memo[c] & cmask) != 0 || (memo[b] & bmask) != 0) return false;
+                if (memo[r] & rmask || memo[c] & cmask || memo[b] & bmask) return false;
                 memo[r] |= rmask; memo[c] |= cmask; memo[b] |= bmask;
             }
         }
@@ -32,7 +32,7 @@ public:
 int main()
 {
     vector<vector<char>> board = {
-      {'8','3','.','.','7','.','.','.','.'},
+      {'5','3','.','.','7','.','.','.','.'},
       {'6','.','.','1','9','5','.','.','.'},
       {'.','9','8','.','.','.','.','6','.'},
       {'8','.','.','.','6','.','.','.','3'},

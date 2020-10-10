@@ -9,10 +9,10 @@ public:
     {
         vector<int> memo(9, 0);
         build_memo(memo, board);
-        back_trace(0, memo, board);
+        back_trace(0, 0, memo, board);
     }
 
-    void build_memo(memo, board)
+    void build_memo(vector<int> &memo, vector<vector<char>> &board)
     {
         int rmask{}, cmask{}, bmask{};
         for (int r = 0; r < 9; ++r) {
@@ -28,38 +28,53 @@ public:
         }
     }
 
-    void back_trace(int row, vector<int> &memo, vector<vector<char>> &board)
+    bool back_trace(int row, int col, vector<int> &memo, vector<vector<char>> &board)
     {
-        if (row == 9) return;
+        // 找到一个可行解，触发 base case
+        if (row == 9) return true;
 
-        for (int col = 0; col < 9; ++col) {
-            int box = (row / 3) * 3 + col / 3; // key state
-            if (board[row][col] != '.')  continue;
-
-            for (int n = 0; n < 9; ++n) {
-                if (!is_valid(row, col, box, num[n]), memo) continue;
-                board[row][col] = num[n];
-                back_trace(row + 1, memo, board);
-                clear_memo();
-            }
+        // 穷举到最后一列的话就换到下一行重新开始。必须在预设判断的前面
+        if (col == 9) {
+            return back_trace(row + 1, 0, memo, board);
         }
+
+        // 如果有预设数字，不用我们穷举
+        if (board[row][col] != '.') {
+            return back_trace(row, col + 1, memo, board);
+        }
+
+        int box = (row / 3) * 3 + col / 3; // key state
+
+        for (char ch = '1'; ch <= '9'; ++ch) {
+            //printf("row: %d, col: %d, try: %c \n", row, col, ch);
+            // 如果遇到不合法的数字，就跳过
+            if (!is_valid(row, col, box, ch, memo)) continue;
+            board[row][col] = ch;
+            //printf("row: %d, col: %d, choice: %c \n", row, col, ch);
+            // 如果找到一个可行解，立即结束
+            if (back_trace(row, col + 1, memo, board)) return true;
+            board[row][col] = '.';
+            clear_memo(row, col, box, ch, memo);
+            //printf("row: %d, col: %d, back: %c \n", row, col, ch);
+        }
+        // 穷举完 1~9，依然没有找到可行解，此路不通
+        return false;
     }
 
     bool is_valid(int r, int c, int b, char num, vector<int> &memo)
     {
         int index = num - '1'; // '1' -> 0
         int rmask = 0x1 << index, cmask = rmask << 9, bmask = cmask << 9;
-        if ((memo[r] & rmask) != 0 || (memo[c] & cmask) != 0 || (memo[b] & bmask) != 0) return false;
+        if (memo[r] & rmask || memo[c] & cmask || memo[b] & bmask) return false;
         memo[r] |= rmask; memo[c] |= cmask; memo[b] |= bmask;
         return true;
     }
 
-    void fill_memo(int r, int c, int b, char num, vector<int> &memo)
+    void clear_memo(int r, int c, int b, char num, vector<int> &memo)
     {
         int index = num - '1'; // '1' -> 0
-        memo[r] |= 0x1 << index;
-        memo[c] |= 0x1 << index << 9;
-        memo[b] |= 0x1 << index << 18;
+        int rmask = 0x1 << index, cmask = rmask << 9, bmask = cmask << 9;
+        memo[r] &= ~rmask; memo[c] &= ~cmask; memo[b] &= ~bmask;
     }
 
     bool is_valid_sudoku(vector<vector<char>> &board)
@@ -92,8 +107,6 @@ public:
             printf("\n");
         }
     }
-
-    char num[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 };
 
 int main()
@@ -111,9 +124,9 @@ int main()
     };
 
     Solution s;
-    bool ret = s.is_valid_sudoku(board);
-    printf("%s\n", ret ? "valid" : "not valid");
+    //bool ret = s.is_valid_sudoku(board);
+    //printf("%s\n", ret ? "valid" : "not valid");
 
+    s.solveSudoku(board);
     s.dump(board);
-    printf("%d\n", '5' - 48);
 }
