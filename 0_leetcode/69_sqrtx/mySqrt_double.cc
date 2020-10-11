@@ -9,20 +9,17 @@ public:
     // 寻找 k 使得k^2 <= x
     double mySqrt(double x)
     {
-        uint64_t count{};
-        double left = 0.0, right = x;
-        //while (left < right) {
-        while (true) {
-            if (fabs(right - left) < 1e-7) {
-                printf("count: %lu\n", count);
-                return left;
-            }
-            double mid = left + (right - left) / 2;
+        //uint64_t count{};
+        double left = 0.0, right = x, mid{};
+
+        while (fabs(right - left) > 1e-7) {
+            mid = left + (right - left) / 2;
             if (mid < x / mid)  left = mid;
             else right = mid;
-            ++count;
+            //++count;
         }
-        return left;
+        //printf("count: %lu\n", count);
+        return mid;
     }
 };
 
