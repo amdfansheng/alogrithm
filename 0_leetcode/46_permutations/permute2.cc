@@ -1,4 +1,5 @@
 // 全排列，经典回溯问题
+// 回溯标准解决方法
 #include <vector>
 #include <cstdio>
 #include <unordered_set>
@@ -23,9 +24,7 @@ public:
         int size = nums.size();
         if (size == trace.size()) {
             vector<int> vec;
-            for (auto &&v : trace) {
-                vec.push_back(v);
-            }
+            for (auto &&v : trace) { vec.push_back(v); }
             ret.push_back(vec);
             return;
         }

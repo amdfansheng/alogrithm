@@ -1,0 +1,32 @@
+// coinChang2 3 log:
+amount: 3, coin: 1, min: 2147483647
+amount: 2, coin: 1, min: 2147483647
+amount: 1, coin: 1, min: 2147483647
+subpro: 0, min: 2147483647
+amount: 1, coin: 2, min: 1
+subpro: -1, min: 1
+amount: 1, coin: 5, min: 1
+subpro: -1, min: 1
+amount: 1, min: 1           //  退栈
+
+subpro: 1, min: 2147483647  // 最底层返回
+amount: 2, coin: 2, min: 2
+subpro: 0, min: 2
+amount: 2, coin: 5, min: 1
+subpro: -1, min: 1
+amount: 2, min: 1           // 退栈
+
+subpro: 1, min: 2147483647  // 中间层返回
+amount: 3, coin: 2, min: 2
+amount: 1, coin: 1, min: 2147483647 // 进栈
+subpro: 0, min: 2147483647
+amount: 1, coin: 2, min: 1
+subpro: -1, min: 1
+amount: 1, coin: 5, min: 1
+subpro: -1, min: 1
+amount: 1, min: 1           // 退栈
+subpro: 1, min: 2
+amount: 3, coin: 5, min: 2
+subpro: -1, min: 2
+amount: 3, min: 2           // 退出循环
+3 coins number: 2
