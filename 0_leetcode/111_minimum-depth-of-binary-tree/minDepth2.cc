@@ -8,9 +8,9 @@ public:
     int minDepth(TreeNode* root)
     {
         if (!root) return 0;
-        if (!root->left) return minDepth(root->right) + 1;
-        if (!root->right) return minDepth(root->left) + 1;
-
+        if (!root->left) return minDepth(root->right) + 1; // 左为空
+        if (!root->right) return minDepth(root->left) + 1; // 右为空
+        // 左右都不空
         int ld = minDepth(root->left);
         int rd = minDepth(root->right);
 
@@ -38,7 +38,7 @@ public:
 
             if (!node->right && !node->left) min_dep > dep ? min_dep = dep : 0;
 
-            if (node->right) memo.push({node->right, dep + 1});
+            if (node->right) memo.push({node->right, dep + 1}); // 先放右再放左
             if (node->left)  memo.push({node->left, dep + 1});
         }
 
@@ -63,7 +63,7 @@ public:
 
                 if (!node->right && !node->left) min_dep > depth ? min_dep = depth : 0;
 
-                if (node->left) memo.push(node->left);
+                if (node->left) memo.push(node->left); // 先放左再放右
                 if (node->right) memo.push(node->right);
             }
         }

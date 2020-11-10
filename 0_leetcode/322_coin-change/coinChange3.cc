@@ -18,17 +18,17 @@ public:
     {
         if (!amount) return 0;
         if (amount < 0) return -1;
-
         if (memo[amount] != INT_MIN) return memo[amount];
+
         int min{INT_MAX};
         for (auto &&coin : coins) {
-            printf("amount: %d, coin: %d\n", amount, coin);
+            //printf("amount: %d, coin: %d\n", amount, coin);
             int subpro = dp(memo, coins, amount - coin);
-            printf("subpro: %d\n", subpro);
+            //printf("subpro: %d\n", subpro);
             if (subpro == -1) continue;
             if (min > subpro + 1) min = subpro + 1;
         }
-        printf("amount: %d, min: %d\n", amount, min);
+        //printf("amount: %d, min: %d\n", amount, min);
         memo[amount] = min == INT_MAX ? -1 : min;
         return memo[amount];
     }

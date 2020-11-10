@@ -1,4 +1,5 @@
 // 全排列，经典回溯问题
+// 通过交换元素
 #include <vector>
 #include <cstdio>
 
