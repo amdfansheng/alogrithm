@@ -21,6 +21,7 @@ public:
         build_tree(root_, nums, 0);
     }
 
+    // -------------------------
     void PrePrint()
     {
         printf("preorder traversal: ");
@@ -42,7 +43,90 @@ public:
         printf("\n");
     }
 
-    // 效果等同于前序遍历
+    // -------------------------
+    // 详解：https://blog.csdn.net/Benja_K/article/details/88389039
+    // 从当前节点开始遍历：（当入栈时访问节点内容，则为前序遍历；出栈时访问，则为中序遍历）
+    // 1. 若当前节点存在，就存入栈中，并访问左子树；
+    // 2. 直到当前节点不存在，就出栈，并通过栈顶节点访问右子树；
+    // 3. 不断重复12，直到当前节点不存在且栈空。
+    void PrePrintNoRecursion()
+    {
+        printf("preorder traversal (Non Recursion): ");
+        std::stack<TreeNode *> nstack;
+
+        TreeNode *node = root_;
+        while (node || !nstack.empty()) {
+            if (node) { //两种情况：1.栈不空；2.栈空
+                printf("%d ", node->val); // 入栈前，访问输出
+                nstack.push(node);
+                node = node->left;
+            } else { //一种情况：当前节点为空，但栈不空
+                node = nstack.top();
+                nstack.pop();
+                node = node->right;
+            }
+        }
+
+        printf("\n");
+    }
+
+    void InPrintNoRecursion()
+    {
+        printf("inorder traversal (Non Recursion): ");
+        std::stack<TreeNode *> nstack;
+
+        TreeNode *node = root_;
+        while (node || !nstack.empty() ) {
+            if (node) {
+                nstack.push(node);
+                node = node->left;
+            } else {
+                node = nstack.top();
+                printf("%d ", node->val); // 出栈时访问
+                nstack.pop();
+
+                node = node->right;
+            }
+        }
+
+        printf("\n");
+    }
+
+    void PostPrintNoRecursion()
+    {
+        printf("postorder traversal (Non Recursion): ");
+        struct Wrapper {
+            TreeNode * node = nullptr;
+            int flag = 0;
+        };
+        std::stack<Wrapper> nstack;
+
+        Wrapper wrp;
+        wrp.node = root_;
+        while (wrp.node|| !nstack.empty() ) {
+            if (wrp.node) {
+                wrp.flag = 1;
+                nstack.push(wrp);
+                wrp.node = wrp.node->left;
+            } else {
+                if (wrp.flag == 1) {
+                    nstack.top().flag = 2;
+                    wrp.node = nstack.top().node->right;
+                } else {
+                    wrp = nstack.top();
+                    printf("%d ", wrp.node->val); // 出栈时访问
+                    nstack.pop();
+
+                    wrp.node = nullptr;
+                }
+            }
+        }
+
+        printf("\n");
+    }
+
+    // -------------------------
+    // 效果等同于前序遍历, 非递归的技巧性写法
     void DepthFirstSearch()
     {
         printf("DFS: ");
@@ -51,7 +135,7 @@ public:
         nstack.push(root_);
         while (!nstack.empty()) {
             TreeNode *top = nstack.top();
-            printf("%d ", top->val);
+            printf("%d ", top->val); // process
             nstack.pop();
 
             if (top->right) nstack.push(top->right);
@@ -74,28 +158,6 @@ public:
 
             if (front->left) nqueue.push(front->left);
             if (front->right) nqueue.push(front->right);
-        }
-
-        printf("\n");
-    }
-
-    void InPrintNoRecursion()
-    {
-        printf("inorder traversal (Non Recursion): ");
-        std::stack<TreeNode *> nstack;
-
-        TreeNode *node = root_;
-        while (!nstack.empty() || node) {
-            while (node) {
-                nstack.push(node);
-                node = node->left;
-            }
-
-            node = nstack.top();
-            printf("%d ", node->val);
-            nstack.pop();
-
-            node = node->right; // 如果右儿子非空，把右儿子看成根，如果右儿子为空，说明左树已经打印完毕
         }
 
         printf("\n");
