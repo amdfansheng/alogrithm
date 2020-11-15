@@ -95,29 +95,28 @@ public:
     void PostPrintNoRecursion()
     {
         printf("postorder traversal (Non Recursion): ");
-        struct Wrapper {
-            TreeNode * node = nullptr;
-            int flag = 0;
+        struct NodeWrapper {
+            TreeNode *node = nullptr;
+            int flag = 0; // 记录每个节点访问次数栈
         };
-        std::stack<Wrapper> nstack;
+        std::stack<NodeWrapper> nstack;
 
-        Wrapper wrp;
-        wrp.node = root_;
-        while (wrp.node|| !nstack.empty() ) {
-            if (wrp.node) {
-                wrp.flag = 1;
-                nstack.push(wrp);
-                wrp.node = wrp.node->left;
+        TreeNode *node = root_;
+        while (node|| !nstack.empty() ) {
+            if (node) { // 第一次访问，flag置1，入栈
+                nstack.push({node, 1});
+                node = node->left;
             } else {
-                if (wrp.flag == 1) {
+                NodeWrapper tn = nstack.top();
+                int flag = tn.flag;
+                if (flag == 1) { // 第二次访问，flag置2，取栈顶元素但不出栈
                     nstack.top().flag = 2;
-                    wrp.node = nstack.top().node->right;
-                } else {
-                    wrp = nstack.top();
-                    printf("%d ", wrp.node->val); // 出栈时访问
+                    node = tn.node->right;
+                } else { // 第三次访问，出栈
+                    printf("%d ", tn.node->val); // 出栈时访问
                     nstack.pop();
 
-                    wrp.node = nullptr;
+                    node = nullptr;
                 }
             }
         }

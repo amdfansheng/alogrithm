@@ -50,8 +50,7 @@ public:
     {
         if (!root) return 0;
 
-        int depth{};
-        int min_dep{INT_MAX};
+        int depth{}; // root 本身就是一层，depth 初始化为 1
         queue<TreeNode *> memo;
         memo.push(root);
         while (!memo.empty()) {
@@ -61,14 +60,14 @@ public:
                 TreeNode *node = memo.front();
                 memo.pop();
 
-                if (!node->right && !node->left) min_dep > depth ? min_dep = depth : 0;
+                if (!node->right && !node->left) return depth;
 
                 if (node->left) memo.push(node->left); // 先放左再放右
                 if (node->right) memo.push(node->right);
             }
         }
 
-        return min_dep;
+        return depth;
     }
 };
 
