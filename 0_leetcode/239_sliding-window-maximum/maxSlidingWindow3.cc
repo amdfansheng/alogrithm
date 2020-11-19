@@ -7,6 +7,7 @@ using namespace std;
 
 class Solution {
 public:
+    // 单调队列的经典题目
     vector<int> maxSlidingWindow(vector<int>& nums, int k)
     {
         vector<int> ret;
