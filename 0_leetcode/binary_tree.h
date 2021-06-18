@@ -167,8 +167,8 @@ private:
 
     void build_tree(TreeNode *&node, const std::vector<int> &nums, int index)
     {
-        if (index >= nums.size() ||
-            nums[index] == INT_MAX) return;
+        if (index >= nums.size() || nums[index] == INT_MAX) return;
+
         node = new TreeNode(nums[index]);
         build_tree(node->left, nums, 2 * index + 1);
         build_tree(node->right, nums, 2 * index + 2);
